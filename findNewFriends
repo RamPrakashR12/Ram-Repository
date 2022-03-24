@@ -1,0 +1,27 @@
+import java.util.*;
+
+class findNewFriends{
+    
+    public static void main(String args[]){
+        
+        Scanner S =new Scanner(System.in);
+        
+        System.out.println("Enter the number of friends : ");
+        int frndCount = S.nextInt();
+        
+        String [] frndStr = new String[frndCount];
+        TreeSet<String> frndList = new TreeSet<String>();
+        //(for each friends - line by line) :
+        System.out.println("Enter your friend and their mutual friends name ");
+        for(int i = 0;i<frndCount-1;i++){
+            String Str = S.nextLine();
+            frndStr[i] = Str; 
+            String [] frndName = Str.split(" ",2);
+            //add first name to the frnd list bucket..
+            frndList.add(frndName[0].toString());
+        }
+        System.out.println(frndList);
+        
+    }
+    
+}
