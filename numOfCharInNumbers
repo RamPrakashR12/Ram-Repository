@@ -1,0 +1,24 @@
+/*
+Write a program to find number of character. Given a number n, write all the numbers from 1 to n in a paper. We have to find the number of characters written on the paper. For example, if n=13, the output should be 17 if n=101, the output should be 195.
+
+Input / Output Sample : 
+Enter the number : 13
+Sum of digits of 1 to 13 : 17
+*/
+
+import java.util.*;
+
+class numOfCharInNumbers{
+    
+    public static void main(String args[]){
+        System.out.println("Enter the number : ");
+        Scanner S = new Scanner(System.in);
+        int finalNum = S.nextInt(); 
+        String numbers = "";
+        for(int i = 1; i<=finalNum; i++){
+            numbers = (i==1)?i+"":numbers+(i+"");
+        }
+        System.out.println("Sum of digits of 1 to " + finalNum + " : " + numbers.length());
+    }
+    
+}
