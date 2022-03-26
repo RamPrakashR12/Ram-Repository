@@ -1,0 +1,38 @@
+/*
+Reverse the sentence without changing punctuation. The position of the punctuations must be maintained.
+*/
+import java.util.*;
+
+class RevStrPunctation{
+    
+    public static void main(String args[]){
+        
+        System.out.println("Enter string to be reversed without changing position of punctuation : ");
+        Scanner S = new Scanner(System.in);
+        String Str = S.nextLine();
+        char [] CharArr = Str.toCharArray();
+        int len = CharArr.length;
+        char [] revCharArr = new char[len];
+        ArrayList<Integer> PunctPos = new ArrayList<Integer>();
+        for(int i = len-1,j=0;i>=0;i--){
+            char ch = CharArr[i];
+            if(Character.isLetter(ch) || Character.isDigit(ch)){
+                revCharArr[j] = ch;
+                j++;
+            } else {
+                PunctPos.add(i);
+            }
+        }
+        
+        for(int i = 0,j=0;i<len;i++){
+            if(PunctPos.contains(i)){
+                System.out.print(CharArr[i]);
+            } else {
+                //System.out.print(j);
+                System.out.print(revCharArr[j]);
+                j++;
+            }
+        }
+    }
+    
+}
