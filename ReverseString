@@ -1,0 +1,19 @@
+import java.util.*;
+
+class ReverseString{
+    
+    public static void main(String args[]){
+        
+        String Str = "";
+        System.out.println("Enter the string to be reversed : ");
+        Scanner S = new Scanner(System.in);
+        Str = S.nextLine();
+        String [] RevStr = Str.split("\\s+");
+        int n = RevStr.length;
+        for(int i = n-1;i>=0;i--){
+            System.out.print(RevStr[i] + " ");
+        }
+        
+    }
+    
+}
