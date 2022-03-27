@@ -1,3 +1,10 @@
+/*
+Given a string convert that to a string which holds only distinct characters. Find the character repeated and replace it with next element to make the string distinct. 
+
+Sample Input/Output:
+bbcaacgkkk
+bdcaefgkhi
+*/
 import java.util.*;
 
 class DictinctCharacters{
