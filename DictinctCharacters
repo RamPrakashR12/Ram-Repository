@@ -1,0 +1,36 @@
+import java.util.*;
+
+class DictinctCharacters{
+    public static void main(String args[]){
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter the string : ");
+        String Str = S.nextLine();
+        char [] letters = Str.toCharArray();
+        int len = Str.length();
+        HashSet<Integer> AlphNum = new HashSet<Integer>();
+        HashSet<Integer> Pos = new HashSet<Integer>();
+        //to find max of alplabet & to find char which are repeated
+        for(int i=0;i<len;i++){
+            char ch = letters[i];
+            int n = (int)ch;
+            if(AlphNum.contains(n)){
+                Pos.add(i);
+            }
+            AlphNum.add(n);
+        }
+        Iterator itr = Pos.iterator();
+        int Alph = 97; 
+        while(itr.hasNext()){
+            int n = (int)itr.next();
+            while(AlphNum.contains(Alph)){
+                Alph+=1;
+            }
+            AlphNum.add(Alph);
+            letters[n] = (char)Alph;
+        }
+        for(int i=0;i<len;i++){
+            System.out.print(letters[i]);
+        }
+    }
+    
+}
