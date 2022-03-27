@@ -1,0 +1,30 @@
+/*
+Find all the substring within a string
+
+Sample Input/Output:
+Test
+
+T Te Tes Test 
+e es est 
+s st 
+t 
+*/
+
+import java.util.*;
+
+class SubString{
+    
+    public static void main(String args[]){
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter string to be splitted : ");
+        String Str = S.nextLine();
+        int len = Str.length();
+        for(int i=0;i<len;i++){
+            for(int j=i+1;j<=len;j++){
+                System.out.print(Str.substring(i,j) + " ");
+            }
+        }
+        
+    }
+    
+}
