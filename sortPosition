@@ -1,0 +1,40 @@
+import java.util.*;
+
+class sortPosition{
+    
+    public static void main(String args[]){
+        
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter the no. of array elements : ");
+        int len = S.nextInt();
+        int [] a = new int[len];
+        System.out.println("Enter the elements of array : ");
+        for(int i = 0;i<len;i++){
+            a[i] = S.nextInt();
+        }
+        
+        //Sort by Descending
+        int temp = 0, i = 0;
+        for(i = 0;i<len;i++){
+            for(int j = i+1;j<len;j++){
+                if(a[i]<a[j]){
+                    temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+        int n = 1;
+
+        int count = 0;
+        for(i=0,n=len-1;count<len;i++){
+            System.out.print(a[i]+ " ");
+            if(i==n-i){
+                break;
+            }
+            System.out.print(a[n-i] + " ");
+            count+=2;
+        }
+    }
+    
+}
