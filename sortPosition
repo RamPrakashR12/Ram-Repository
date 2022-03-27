@@ -1,3 +1,11 @@
+/*
+Write a program to sort elements in the array by even position in descending order and od position ascending order.
+
+Sample Input/Output:
+2 12 9 5 10 1 8
+
+12 1 10 2 9 5 8 
+*/
 import java.util.*;
 
 class sortPosition{
