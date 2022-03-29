@@ -1,0 +1,77 @@
+/*
+
+Question:
+https://wisdomoverflow.com/2019/04/28/print-the-maximum-possible-k-digit-number/
+
+*/
+
+import java.util.*;
+
+class MaxPossibleNum{
+    
+    public static void main(String args[]){
+        
+        Scanner S = new Scanner(System.in);
+        System.out.println("Enter no of elements of array : ");
+        int n = S.nextInt();
+        System.out.println("Enter the array values : ");
+        int [] arr = new int[n];
+        for(int i=0;i<n;i++){
+            arr[i] = S.nextInt();
+        }
+        
+        System.out.println("Provide the value of K : ");
+        int k = S.nextInt();
+        
+        //Array Sort
+        int temp = 0, j = 0;
+        String Str1 = "", Str2 = "";
+        int num1 = 0, num2 = 0;
+        for(int i=0;i<n-1;i++){
+            for(j=i+1;j<n;j++){
+                Str1 = ""+arr[i];
+                num1 = Integer.parseInt(Str1.substring(0,1));
+                Str2 = ""+arr[j];
+                num2 = Integer.parseInt(Str2.substring(0,1));
+
+                if(
+                    (num2==num1 && arr[j]<arr[i]) ||
+                    (num2>num1)
+                  ){
+                temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+                } 
+            }
+        }
+        
+        for(int i=0;i<n-1;i++){
+            System.out.print(arr[i] + " ");
+        }
+        
+        int num = 0, max = 0, val = 0;
+        j = 0;
+        String Str = "", tempStr="";
+        for(int i=0;i<n;i++){
+            num = arr[i];
+            Str = num + "";
+            j = i+1;
+           
+            while(j<n){
+                tempStr = Str + "" + arr[j];
+                if(tempStr.length()<=k){
+                   Str = Str + "" + arr[j];
+                }
+                j++;
+            }
+            if(Str.length()==k){
+                val = Integer.parseInt(Str);
+                if(max < val){
+                    max = val;
+                    temp = max;
+                }
+            }
+        }
+            System.out.println(max);
+    }
+}
