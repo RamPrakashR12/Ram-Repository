@@ -1,92 +1,102 @@
-// Online Java Compiler
-// Use this editor to write, compile and run your Java code online
-import java.util.ArrayList;
-import java.lang.*;
+//  ( (17-2) / (1+4) ) * 2
+import java.util.*;
 
-class HelloWorld {
-    public static void main(String[] args) {
-        String input = "12+3-1/2";
-        String[] elements = input.split("");
+class BODMAS{
+    
+    public static void main(String args[]){
         
-        ArrayList<Integer> numbers = new ArrayList<Integer>();
-        ArrayList<OPERATORS> operators = new ArrayList<OPERATORS>();
-        String lastValue = "";
-        for(String eachElement : elements)
-        {
-            OPERATORS operator = OPERATORS.getOperator(eachElement);
-            if(operator == null)
-            {
-                lastValue = lastValue+eachElement;
-            }
-            else
-            {
-                numbers.add(Integer.parseInt(lastValue));
-                lastValue = "";
-                operators.add(operator);
+        String input = "( (17-2) / (1+4) ) * 2";
+        input = input.replaceAll("\\s","");
+        System.out.println(input);
+        int openBracketCount = 0, closedBracketCount = 0;
+        int openBracketPos = 0, closedBracketPos = 0;
+        int loopCount = 0;
+        String SubString = "";
+        while(input.contains("(")){
+            String Result = "";
+            System.out.println("Bracket exists");
+            char [] eachChar = input.toCharArray();
+            while(loopCount < input.length()){
+                if(eachChar[loopCount]=="("){
+                    openBracketCount = 1;
+                    openBracketPos = loopCount;
+                }
+                if(eachChar[loopCount]==")"){
+                    closedBracketCount = 1;
+                    closedBracketPos = loopCount;
+                    SubString = input.substring(openBracketPos,closedBracketPos)
+                    Result = Calculate(SubString);
+                    input = input.substring(0,openBracketPos-1) + Result +
+                    input.substring(closedBracketPos+1, input.length());
+                }
+                loopCount++;
             }
         }
-        numbers.add(Integer.parseInt(lastValue));
-        
-        Integer operatorIndex = 0;
-        Integer finalValue = numbers.get(0);
-        for(int numberIndex = 1; numberIndex < numbers.size(); numberIndex++)
-        {
-            Integer currentNumber = numbers.get(numberIndex);
-            OPERATORS operator = operators.get(operatorIndex);
-            operatorIndex++;
-            System.out.print(operator);
-            switch(operator)
-            {
-                case ADD:
-                    finalValue = finalValue+currentNumber;
-                    break;
-                case SUBRACT:
-                    finalValue = finalValue-currentNumber;
-                    break;
-                case MULTIPLY:
-                    finalValue = finalValue*currentNumber;
-                    break;
-                case DIVIDE:
-                    finalValue = finalValue/currentNumber;
-                    break;
-            }
-        }
-        System.out.print("finalValue - "+finalValue);
     }
-     
-    public enum OPERATORS
-    {
-        ADD("+"),
-        SUBRACT("-"),
-        MULTIPLY("*"),
+    
+    public String Calculate(String Query){
+           String Result = Query; 
+           ArrayList<Integer> Numbers = new ArrayList<Integer>();
+           ArrayList<OPERATORS> Operators = new ArrayList<OPERATORS>();
+           char [] eachChar = Result.toCharArray();
+           int loopCount = 0, output = 0, num = 0;
+           String Value = "";
+           for(;loopCount<Result.length();loopCount++){
+               OPERATORS operator = OPERATORS.getOperator (eachChar[loopCount]);
+               if(operator==null){
+                   Value = Value + eachChar[loopCount];
+               } else {
+                   numbers.add(Integer.parseInt(eachChar[loopCount]));
+                   Operators.add(operator);
+                   Value = "";
+               }
+           }
+           loopCount = 1;
+           int sum = numbers.get(0), sum = 0; nextNum = 0;
+           for(;loopCount<numbers.size();loopCount++){
+               nextNum = numbers.get(loopCount);
+               OPERATORS operator = operators.get(loopCount-1);
+               switch(operator)
+               {
+                   case ADD:
+                       sum = sum + nextNum;
+                       break;
+                   case SUBTRACT:
+                       sum = sum - nextNum;
+                       break;
+                   case MULTIPLE:
+                       sum = sum * nextNum;
+                       break;
+                   case DIVIDE:
+                       sum = sum / nextNum;
+                       break;
+               }
+           }
+           return Result;
+    }
+    
+    OPERATORS operators{
+        ADD("+");
+        SUBTRACT("-");
+        MULTIPLE("*");
         DIVIDE("/");
         
-        private String name;
-        OPERATORS(String name)
-        {
-            this.name = name;
-        }
-        
-        public static OPERATORS getOperator(String operator)
-        {
+        public static OPERATORS getOperator(String operator){
             switch(operator)
             {
                 case "+":
                     return ADD;
+                    break;
                 case "-":
-                    return SUBRACT;
-                case "*":
-                    return MULTIPLY;
-                case "/":
+                    return SUBTRACT;
+                    break;
+                case "+":
+                    return MULTIPLE;
+                    break;
+                case "+":
                     return DIVIDE;
-                default:
-                    return null;
+                    break;
             }
-        }
-        
-        public String getName()
-        {
-            return this.name;
         }
     }
 }
