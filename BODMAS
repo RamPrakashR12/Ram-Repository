@@ -1,0 +1,92 @@
+// Online Java Compiler
+// Use this editor to write, compile and run your Java code online
+import java.util.ArrayList;
+import java.lang.*;
+
+class HelloWorld {
+    public static void main(String[] args) {
+        String input = "12+3-1/2";
+        String[] elements = input.split("");
+        
+        ArrayList<Integer> numbers = new ArrayList<Integer>();
+        ArrayList<OPERATORS> operators = new ArrayList<OPERATORS>();
+        String lastValue = "";
+        for(String eachElement : elements)
+        {
+            OPERATORS operator = OPERATORS.getOperator(eachElement);
+            if(operator == null)
+            {
+                lastValue = lastValue+eachElement;
+            }
+            else
+            {
+                numbers.add(Integer.parseInt(lastValue));
+                lastValue = "";
+                operators.add(operator);
+            }
+        }
+        numbers.add(Integer.parseInt(lastValue));
+        
+        Integer operatorIndex = 0;
+        Integer finalValue = numbers.get(0);
+        for(int numberIndex = 1; numberIndex < numbers.size(); numberIndex++)
+        {
+            Integer currentNumber = numbers.get(numberIndex);
+            OPERATORS operator = operators.get(operatorIndex);
+            operatorIndex++;
+            System.out.print(operator);
+            switch(operator)
+            {
+                case ADD:
+                    finalValue = finalValue+currentNumber;
+                    break;
+                case SUBRACT:
+                    finalValue = finalValue-currentNumber;
+                    break;
+                case MULTIPLY:
+                    finalValue = finalValue*currentNumber;
+                    break;
+                case DIVIDE:
+                    finalValue = finalValue/currentNumber;
+                    break;
+            }
+        }
+        System.out.print("finalValue - "+finalValue);
+    }
+     
+    public enum OPERATORS
+    {
+        ADD("+"),
+        SUBRACT("-"),
+        MULTIPLY("*"),
+        DIVIDE("/");
+        
+        private String name;
+        OPERATORS(String name)
+        {
+            this.name = name;
+        }
+        
+        public static OPERATORS getOperator(String operator)
+        {
+            switch(operator)
+            {
+                case "+":
+                    return ADD;
+                case "-":
+                    return SUBRACT;
+                case "*":
+                    return MULTIPLY;
+                case "/":
+                    return DIVIDE;
+                default:
+                    return null;
+            }
+        }
+        
+        public String getName()
+        {
+            return this.name;
+        }
+    }
+}
