@@ -5,7 +5,7 @@ class BODMAS{
     
     public static void main(String args[]){
         
-        String input = "( (17-2) / (1+4) ) * 2";
+        String input = " ((17-2) / (1+4) ) * 2";
         input = input.replaceAll("\\s","");
         String initialInput = input;
         int openBracketCount = 0, closedBracketCount = 0;
