@@ -1,4 +1,11 @@
-//  ( (17-2) / (1+4) ) * 2
+/*
+BODMAS Rule:
+
+Sample Input/Output:
+Input : ((17-2)/(1+4))*2 
+Ouput : 6
+
+*/
 import java.util.*;
 
 class BODMAS{
