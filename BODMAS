@@ -7,55 +7,69 @@ class BODMAS{
         
         String input = "( (17-2) / (1+4) ) * 2";
         input = input.replaceAll("\\s","");
-        System.out.println(input);
+        String initialInput = input;
         int openBracketCount = 0, closedBracketCount = 0;
         int openBracketPos = 0, closedBracketPos = 0;
-        int loopCount = 0;
+        int loopCount = 0, first = 0;
         String SubString = "";
+        String Result = "";
         while(input.contains("(")){
-            String Result = "";
-            System.out.println("Bracket exists");
+            Result = "";
+            openBracketCount = 0;
+            closedBracketCount = 0;
             char [] eachChar = input.toCharArray();
-            while(loopCount < input.length()){
-                if(eachChar[loopCount]=="("){
+            int count = input.length();
+            loopCount = 0;
+            while(loopCount < count){
+                if(input.charAt(loopCount)=='('){
                     openBracketCount = 1;
                     openBracketPos = loopCount;
                 }
-                if(eachChar[loopCount]==")"){
+                if(input.charAt(loopCount)==')'){
                     closedBracketCount = 1;
                     closedBracketPos = loopCount;
-                    SubString = input.substring(openBracketPos,closedBracketPos)
+                    SubString = input.substring(openBracketPos+1 ,closedBracketPos);
                     Result = Calculate(SubString);
-                    input = input.substring(0,openBracketPos-1) + Result +
-                    input.substring(closedBracketPos+1, input.length());
+                    input = input.substring(0,openBracketPos) + Result +
+                    input.substring(closedBracketPos+1, count);
+                    break;
                 }
                 loopCount++;
             }
         }
+        Result = Calculate(input);
+        System.out.println("Input : " + initialInput + " ");
+        
+        System.out.println("Ouput : " + Result);
     }
     
-    public String Calculate(String Query){
+    public static String Calculate(String Query){
            String Result = Query; 
-           ArrayList<Integer> Numbers = new ArrayList<Integer>();
-           ArrayList<OPERATORS> Operators = new ArrayList<OPERATORS>();
-           char [] eachChar = Result.toCharArray();
+           ArrayList<Integer> numbers = new ArrayList<Integer>();
+           ArrayList<OPERATORS> operators = new ArrayList<OPERATORS>();
+           String [] eachCharArr = Result.split("");
            int loopCount = 0, output = 0, num = 0;
            String Value = "";
+           String eachChar = "";
+           
            for(;loopCount<Result.length();loopCount++){
-               OPERATORS operator = OPERATORS.getOperator (eachChar[loopCount]);
+               eachChar = eachCharArr[loopCount];
+               OPERATORS operator=OPERATORS.getOperator(eachChar);
                if(operator==null){
-                   Value = Value + eachChar[loopCount];
+                   Value = Value + eachChar;
                } else {
-                   numbers.add(Integer.parseInt(eachChar[loopCount]));
-                   Operators.add(operator);
+                   numbers.add(Integer.parseInt(Value));
+                   operators.add(operator);
                    Value = "";
                }
            }
+           numbers.add(Integer.parseInt(Value));
            loopCount = 1;
-           int sum = numbers.get(0), sum = 0; nextNum = 0;
+           int sum = numbers.get(0), nextNum = 0;
            for(;loopCount<numbers.size();loopCount++){
                nextNum = numbers.get(loopCount);
                OPERATORS operator = operators.get(loopCount-1);
+               
                switch(operator)
                {
                    case ADD:
@@ -72,31 +86,46 @@ class BODMAS{
                        break;
                }
            }
-           return Result;
+           return sum+"";
     }
     
-    OPERATORS operators{
-        ADD("+");
-        SUBTRACT("-");
-        MULTIPLE("*");
+    public enum OPERATORS
+    {
+        ADD("+"),
+        SUBTRACT("-"),
+        MULTIPLE("*"),
         DIVIDE("/");
+        
+        private String name;
+        
+        OPERATORS(String name)
+        {
+            this.name = name;
+        }
         
         public static OPERATORS getOperator(String operator){
             switch(operator)
             {
                 case "+":
                     return ADD;
-                    break;
+                    //break;
                 case "-":
                     return SUBTRACT;
-                    break;
-                case "+":
+                    //break;
+                case "*":
                     return MULTIPLE;
-                    break;
-                case "+":
+                    //break;
+                case "/":
                     return DIVIDE;
-                    break;
+                    //break;
+                default:
+                    return null;
             }
         }
-    }
+        
+        public String getName()
+        {
+            return this.name;
+        }
+    };
 }
