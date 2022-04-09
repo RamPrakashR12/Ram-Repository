@@ -1,0 +1,72 @@
+import java.util.*;
+
+public class Main{
+    
+    public static void main(String args[]){
+        
+        // System.out.println("Provide the Input : ");
+        // Scanner S = new Scanner(System.in);
+        String Input = "racecar";//S.nextLine();
+        int len = Input.length();
+        if(len%2==0){
+            System.out.println("Invalid Input !!!");
+        } else {
+            DiagonalPattern(len, Input);
+        }
+    }
+    
+    static void DiagonalPattern(int len, String Input){
+    char[] characters = Input.toCharArray();
+
+    int mid = len/2;
+    int temp = mid;
+    int count = 0, i = 0, j = 0, n = 0, k = 1, n1 = 0;
+    for(i=0;i<len;i++){
+        if(i<=mid){
+            for(j=0;j<temp;j++){
+                System.out.print(" ");
+            }
+            if(temp==j && (i==0 || i == len-1)){
+                System.out.println(characters[j]);
+            } else {
+                System.out.print(characters[mid-i]);
+                n = 2*i-1;
+                for(j=0;j<n;j++){
+                    System.out.print(" ");
+                }
+                System.out.print(characters[mid+i]);
+                System.out.println("");
+            }   
+            temp = temp-1;
+            n1 = mid-2;
+        } 
+        else {
+            temp = temp+2;
+            //System.out.println(" temp : " + temp);
+            for(j=0;j<temp;j++){
+                System.out.print(" ");
+            }
+            // System.out.println(" j : " + j);
+            // System.out.println(" i : " + i);
+            // System.out.println(" mid : " + mid);
+            if(i==0 || i == len-1){
+                System.out.println(characters[j]);
+            } else {
+                System.out.print(characters[k]);
+                n = 2*(n1)+1;
+              System.out.println(" n : " + n);
+              System.out.println(" k : " + k);
+                for(j=0;j<n;j++){
+                    System.out.print(" ");
+                }
+                System.out.print(characters[k+2]);
+                System.out.println("");
+            }  
+            k++;
+            temp--;
+            n1--;
+        }
+    }
+    }
+}
+
